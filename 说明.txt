@@ -1,0 +1,53 @@
+﻿这个是Springboot 的demo
+
+导入项目，直接运行 DemoApplication
+浏览器输入：
+因为这是个webservice 所以 直接 8080 是 没用的
+    http://localhost:8080/
+
+    http://localhost:8080/users/
+    http://localhost:8080/users/add/100/110/111
+    http://localhost:8080/users/delete/100
+    http://localhost:8080/users/2
+    http://localhost:8080/users/search/name/2
+
+即可访问
+
+运行环境方法：
+方法一【推荐】：
+pom.xml配置有：	<packaging>jar</packaging>
+1.1 到项目目录下运行：
+mvn clean package
+打包jar，在dos 界面 留意 打包的地址，[info]可以看到。一般为当前目录的target目录下。
+1.2 java -jar target/demo-0.0.1-SNAPSHOT.jar 运行程序
+1.3 访问即可http://localhost:8080/
+
+方法二直接运行项目：【省事，不推荐】
+2.1 找到入口文件。这里的为DemoApplication.java直接在开发工具运行。
+2.2 访问测试
+
+方法三：打成war发布到tomcat【Spring boot 自带 tomcat这样是根据不同需求 来更改的，也不推荐】
+3.1 pom.xml配置：<packaging>war</packaging>
+3.2 pom.xml配置: spring-boot-starter-tomcat的scope属性设置为provided
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-tomcat</artifactId>
+  <scope>provided</scope>
+</dependency>
+3.3 添加：ServletInitializer类
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+ 
+public class ServletInitializer extends SpringBootServletInitializer {
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(Application.class);
+    }
+}
+Application.class中的Appliation类为你的SpringBoot启动类。
+3.4
+在项目根目录下运行maven命令
+mvn clean package
+3.5访问测试
+
+
